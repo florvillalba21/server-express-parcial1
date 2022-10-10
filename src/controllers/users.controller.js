@@ -5,7 +5,7 @@ const ctrlUser = {};
 
 
 ctrlUser.getUsers = async (req, res)=> {
-    const users = await User.fin()
+    const users = await User.find()
 
     return res.json(users)
 }
@@ -48,11 +48,11 @@ ctrlUser.putUser = async (req, res)=> {
 
 ctrlUser.deleteUser = async (req, res)=> {
     const userId = req.params.id
-    const {username, password, isActive, ... otraInfo} = req.body;
-    const info = {username, password, isActive}
+    
+    // const info = {isActive: false}
 
     try {
-        const infoRemove = await User.findByIdAndRemove(userId, info,(err, doc));
+        const infoRemove = await User.findByIdAndUpdate(userId, {isActive: false});
         return res.json({
             msg: 'usuario removido :D'
         })

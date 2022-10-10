@@ -18,7 +18,7 @@ const UsersSchema = new Schema({
     timestamps: true
 })
 
-UsersSchema.methods.toJSON = ()=> {
+UsersSchema.methods.toJSON = function() {
     const { password, _id, ...user } = this.toObject();
     user.uid = _id;
 
