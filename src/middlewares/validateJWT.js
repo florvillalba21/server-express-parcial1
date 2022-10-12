@@ -19,6 +19,7 @@ const validateJWT = async (req, res, next) => {
     try {
         const { uid } = jwt.verify(token, process.env.SECRET)
         const user = await User.findById(uid)
+        // console.log(user)
 
         if (!user) {
             return res.status(401).json({
@@ -34,7 +35,7 @@ const validateJWT = async (req, res, next) => {
         }
 
         // Se añade la información del usuario al request para que pueda ser utilizada en el resto de middlwares
-        req.user = user;
+        req.id = user;
 
         
         next();

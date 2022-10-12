@@ -6,7 +6,7 @@ const generateJWT = (iud) => {
       iud,
       process.env.SECRET,
       {
-        expiresIn: 60 * 60,
+        expiresIn: 60 * 60 *24,
       },
       (err, token) => {
         if (err) {

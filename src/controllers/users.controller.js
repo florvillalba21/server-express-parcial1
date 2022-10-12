@@ -5,9 +5,13 @@ const ctrlUser = {};
 
 
 ctrlUser.getUsers = async (req, res)=> {
-    const users = await User.find()
-
-    return res.json(users)
+    // const {uid} = req.body
+    // console.log(uid)
+    const resp = await User.findById(req.id)
+    return res.json({
+        msg: "tu usuario",
+        resp
+    })
 }
 
 ctrlUser.postUser = async (req, res)=> {
@@ -29,9 +33,10 @@ ctrlUser.postUser = async (req, res)=> {
 }
 
 ctrlUser.putUser = async (req, res)=> {
-    const userId = req.params.id
+    const userId = req.id
     const {username, password, isActive,... otraInfo} = req.body;
-    const info = {username, password, isActive}
+    const passEncryp = bcrypt.hashSync(password, 10)
+    const info = {username, password: passEncryp, isActive}
 
     try {
         const infoUpdate = await User.findByIdAndUpdate(userId, info ,{new: true});
@@ -47,7 +52,7 @@ ctrlUser.putUser = async (req, res)=> {
 }
 
 ctrlUser.deleteUser = async (req, res)=> {
-    const userId = req.params.id
+    const userId = req.id
     
     // const info = {isActive: false}
 
