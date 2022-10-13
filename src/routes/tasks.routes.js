@@ -9,7 +9,7 @@ const validateJWT = require("../middlewares/validateJWT")
 
 router.get("/tasks",[validateJWT], getTasks)
 router.post("/task", [validateJWT], postTask)
-router.put("/tasks/:id",[validateJWT],  putTask)
-router.delete("/tasks/:id",deleteTask)
+router.put("/task/:id",[validateJWT],  putTask)
+router.delete("/task/:id",[validateJWT],deleteTask)
 
 module.exports = router;

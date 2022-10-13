@@ -1,4 +1,5 @@
 const User     = require("../models/Users");
+const task     = require('../models/Tasks')
 // const db      = require('mongoose')
 const bcrypt   = require('bcrypt');
 const ctrlUser = {};
@@ -7,9 +8,9 @@ const ctrlUser = {};
 ctrlUser.getUsers = async (req, res)=> {
     // const {uid} = req.body
     // console.log(uid)
-    const resp = await User.findById(req.user)
+    const resp = await User.findOne({isActive: true})
     return res.json({
-        msg: "tu usuario",
+        msg: "usuarios activo",
         resp
     })
 }
@@ -34,7 +35,8 @@ ctrlUser.postUser = async (req, res)=> {
 
 ctrlUser.putUser = async (req, res)=> {
     const userId = req.user
-    const {username, password, isActive,... otraInfo} = req.body;
+    const {username, password, _id, ... otraInfo} = req.body;
+    
     const passEncryp = bcrypt.hashSync(password, 10)
     const info = {username, password: passEncryp, isActive}
 

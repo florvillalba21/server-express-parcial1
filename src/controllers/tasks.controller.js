@@ -1,5 +1,6 @@
 const Tasks     = require("../models/Tasks");
 const bcrypt   = require('bcrypt');
+const { findOne } = require("../models/Tasks");
 const ctrlTask = {};
 
 
@@ -17,7 +18,7 @@ ctrlTask.postTask = async(req, res)=>{
     const newTask = new Tasks ({
         tittle,
         description,
-        userId: req.user
+        userId: req.user._id
     })
 
     const task = await newTask.save()
@@ -30,12 +31,29 @@ ctrlTask.postTask = async(req, res)=>{
 
 ctrlTask.putTask = async (req, res)=> {
     const taskId = req.params.id
-    console.log(taskId)
+    const User = req.user._id
+    
+    const searchTask = await Tasks.findById(taskId)
+    const {tittle, description} = req.body
+
+    const infoUpdate = {tittle, description}
     
 
     try {
-        const infoUpdate = await Tasks.findByIdAndUpdate(taskId, {isDone: true} ,{new: true});
+        if(toString(searchTask.userId) != User){
+            return res.json({
+                msg: "La tarea no es de usted"
+            })
+        }
+        const infoTask = await Tasks.findByIdAndUpdate(taskId, infoUpdate, {new: true})
 
+        if(!infoTask){
+            return res.json({
+                msg: "Tarea no encontrada"
+            })
+            
+        }
+        
         return res.json({
             msg : 'tarea modificada :)'
         })
@@ -49,14 +67,27 @@ ctrlTask.putTask = async (req, res)=> {
 
 ctrlTask.deleteTask= async(req, res)=>{
     const taskId = req.params.id;
+    const User = req.user._id
+    
+
+    const searchTask = await Tasks.findById(taskId)
+    
 
     try {
-        const delTask = await Tasks.findByIdAndRemove(taskId)
+        if(toString(searchTask.userId) != toString(User)){
+            return res.json({
+                msg: "La tarea no es de usted"
+            })
+        }
+
+
+        const delTask = await Tasks.findByIdAndRemove(taskId, {isDone: true})
 
         res.json({
             msg: "La tarea ha sido removida :D"
         })
     } catch (error) {
+        console.log(error)
         res.json({
             msg: "ha ocurrido un error :c"
         })
