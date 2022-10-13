@@ -8,9 +8,9 @@ const {
 } = require("../controllers/users.controller");
 const validateJWT = require("../middlewares/validateJWT");
 
-router.get("/users", [validateJWT], getUsers);
+router.get("/user", [validateJWT], getUsers);
 router.post("/user", postUser);
 router.put("/user",[validateJWT], putUser);
-router.delete("/user/:id",[validateJWT], deleteUser);
+router.delete("/user",[validateJWT], deleteUser);
 
 module.exports = router;

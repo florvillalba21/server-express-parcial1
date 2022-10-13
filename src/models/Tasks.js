@@ -1,7 +1,7 @@
 const {model, Schema} = require('mongoose');
 
 const TasksSchema = new Schema({
-    title: {
+    tittle: {
         type: String,
         required: true
     },

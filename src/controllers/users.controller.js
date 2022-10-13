@@ -7,7 +7,7 @@ const ctrlUser = {};
 ctrlUser.getUsers = async (req, res)=> {
     // const {uid} = req.body
     // console.log(uid)
-    const resp = await User.findById(req.id)
+    const resp = await User.findById(req.user)
     return res.json({
         msg: "tu usuario",
         resp
@@ -33,7 +33,7 @@ ctrlUser.postUser = async (req, res)=> {
 }
 
 ctrlUser.putUser = async (req, res)=> {
-    const userId = req.id
+    const userId = req.user
     const {username, password, isActive,... otraInfo} = req.body;
     const passEncryp = bcrypt.hashSync(password, 10)
     const info = {username, password: passEncryp, isActive}

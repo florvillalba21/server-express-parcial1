@@ -3,17 +3,14 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/Users');
 
 const validateJWT = async (req, res, next) => {
-    
     let auth = req.get("authorization")
     
-    let token = auth.substring(7)
-    
-    
-    if (!token) {
+    if (!auth) {
         return res.status(401).json({
             msg: 'Error de autenticación - No hay token en la petición'
         })
     };
+    let token = auth.substring(7)
 
 
     try {
@@ -35,7 +32,7 @@ const validateJWT = async (req, res, next) => {
         }
 
         // Se añade la información del usuario al request para que pueda ser utilizada en el resto de middlwares
-        req.id = user;
+        req.user = user;
 
         
         next();
