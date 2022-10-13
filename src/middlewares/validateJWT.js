@@ -3,15 +3,18 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/Users');
 
 const validateJWT = async (req, res, next) => {
+    // let token = req.headers.authorization;
+
     let auth = req.get("authorization")
+    
     
     if (!auth) {
         return res.status(401).json({
             msg: 'Error de autenticación - No hay token en la petición'
         })
     };
+    
     let token = auth.substring(7)
-
 
     try {
         const { uid } = jwt.verify(token, process.env.SECRET)

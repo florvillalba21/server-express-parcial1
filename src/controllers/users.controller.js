@@ -52,7 +52,7 @@ ctrlUser.putUser = async (req, res)=> {
 }
 
 ctrlUser.deleteUser = async (req, res)=> {
-    const userId = req.id
+    const userId = req.user
     
     // const info = {isActive: false}
 
