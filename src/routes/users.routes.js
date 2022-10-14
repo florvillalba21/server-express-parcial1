@@ -9,7 +9,7 @@ const {
 const validateJWT = require("../middlewares/validateJWT");
 
 router.get("/user", [validateJWT], getUsers);
-router.post("/register", postUser);
+router.post("/user", postUser);
 router.put("/user",[validateJWT], putUser);
 router.delete("/user",[validateJWT], deleteUser);
 
