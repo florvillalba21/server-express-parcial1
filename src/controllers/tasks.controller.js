@@ -1,6 +1,7 @@
 const Tasks     = require("../models/Tasks");
 const bcrypt   = require('bcrypt');
 const { findOne } = require("../models/Tasks");
+const { use } = require("../routes/users.routes");
 const ctrlTask = {};
 
 
@@ -32,31 +33,35 @@ ctrlTask.postTask = async(req, res)=>{
 ctrlTask.putTask = async (req, res)=> {
     const taskId = req.params.id
     const User = req.user._id
+    console.log(User)
     
     const searchTask = await Tasks.findById(taskId)
     const {tittle, description} = req.body
 
     const infoUpdate = {tittle, description}
-    
+    console.log(searchTask.userId)
 
     try {
-        if(toString(searchTask.userId) != User){
+        if(toString(searchTask.userId) != toString(User)){
+            
             return res.json({
-                msg: "La tarea no es de usted"
+                msg : 'la tarea no es de usted'
             })
         }
+        
         const infoTask = await Tasks.findByIdAndUpdate(taskId, infoUpdate, {new: true})
-
         if(!infoTask){
             return res.json({
                 msg: "Tarea no encontrada"
             })
             
         }
-        
+
         return res.json({
             msg : 'tarea modificada :)'
         })
+        
+        
     } catch (error) {
         console.log(error)
         return res.status(500).json({
@@ -81,7 +86,7 @@ ctrlTask.deleteTask= async(req, res)=>{
         }
 
 
-        const delTask = await Tasks.findByIdAndRemove(taskId, {isDone: true})
+        const delTask = await Tasks.findByIdAndUpdate(taskId, {isDone: true})
 
         res.json({
             msg: "La tarea ha sido removida :D"

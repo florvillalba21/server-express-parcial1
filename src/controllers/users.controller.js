@@ -35,10 +35,10 @@ ctrlUser.postUser = async (req, res)=> {
 
 ctrlUser.putUser = async (req, res)=> {
     const userId = req.user
-    const {username, password, _id, ... otraInfo} = req.body;
+    const {username, password, ... otraInfo} = req.body;
     
     const passEncryp = bcrypt.hashSync(password, 10)
-    const info = {username, password: passEncryp, isActive}
+    const info = {username, password: passEncryp}
 
     try {
         const infoUpdate = await User.findByIdAndUpdate(userId, info ,{new: true});

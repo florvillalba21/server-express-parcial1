@@ -40,3 +40,6 @@ npm start
 
 ### para registrar un usuario 
 localhost:[puerto]/register
+
+
+### utilizar postman 
