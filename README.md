@@ -46,7 +46,7 @@ localhost:[puerto]/register
 
 ### para registrarse y loguearse solo username y password
 
-### para crear tareas solo se necesita tittle y description
+### para crear tareas solo se necesita title y description
 
 ### para editar y eliminar tareas, se debe pasar por url la id de la tarea a editar/eliminar
 

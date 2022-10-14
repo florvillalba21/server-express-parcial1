@@ -36,9 +36,9 @@ ctrlTask.putTask = async (req, res)=> {
     console.log(User)
     
     const searchTask = await Tasks.findById(taskId)
-    const {tittle, description} = req.body
+    const {title, description} = req.body
 
-    const infoUpdate = {tittle, description}
+    const infoUpdate = {title, description}
     console.log(searchTask.userId)
 
     try {
