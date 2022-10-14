@@ -54,11 +54,16 @@ ctrlUser.putUser = async (req, res)=> {
 }
 
 ctrlUser.deleteUser = async (req, res)=> {
-    const userId = req.user
+    const userId = req.user._id
     
     // const info = {isActive: false}
 
     try {
+        const searchTasks = await task.find({userId: userId})
+
+        if(searchTasks != ""){
+            const taskRemove = await task.deleteMany({userId: userId})
+        }
         const infoRemove = await User.findByIdAndUpdate(userId, {isActive: false});
         return res.json({
             msg: 'usuario removido :D'
