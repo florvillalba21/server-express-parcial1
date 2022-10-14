@@ -43,3 +43,11 @@ localhost:[puerto]/register
 
 
 ### utilizar postman 
+
+### para registrarse y loguearse solo username y password
+
+### para crear tareas solo se necesita tittle y description
+
+### para editar y eliminar tareas, se debe pasar por url la id de la tarea a editar/eliminar
+
+### primero debe registrarse, loguearse y ahi realizar las peticiones que se desean
