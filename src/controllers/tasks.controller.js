@@ -36,7 +36,7 @@ ctrlTask.putTask = async (req, res)=> {
     console.log(User)
     
     const searchTask = await Tasks.findById(taskId)
-    const {title, description} = req.body
+    const {title, description, isDone} = req.body
 
     const infoUpdate = {title, description}
     console.log(searchTask.userId)
@@ -86,7 +86,7 @@ ctrlTask.deleteTask= async(req, res)=>{
         }
 
 
-        const delTask = await Tasks.findByIdAndUpdate(taskId, {isDone: true})
+        const delTask = await Tasks.findByIdAndRemove(taskId)
 
         res.json({
             msg: "La tarea ha sido removida :D"
