@@ -61,7 +61,7 @@ ctrlUser.deleteUser = async (req, res)=> {
     try {
         const searchTasks = await task.find({userId: userId})
 
-        if(searchTasks != ""){
+        if(searchTasks){
             const taskRemove = await task.deleteMany({userId: userId})
         }
         const infoRemove = await User.findByIdAndUpdate(userId, {isActive: false});
