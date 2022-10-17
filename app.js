@@ -1,5 +1,4 @@
 //importaciones
-const path    = require('path');
 const express = require('express'); 
 const cors    = require('cors');
 const morgan  = require('morgan');
@@ -26,8 +25,6 @@ app.use(morgan('dev'));
 app.use(express.json()); // Para que el servidor comprenda archivos con formato json
 
 
-// Directorio de archivos estáticos
-app.use(express.static(path.join(__dirname, 'src/public')));
 
 // Importacion de rutas
 app.use(require('./src/routes/users.routes')); 

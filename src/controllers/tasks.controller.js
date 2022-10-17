@@ -14,10 +14,10 @@ ctrlTask.getTasks = async (req, res)=> {
 
 
 ctrlTask.postTask = async(req, res)=>{
-    const {tittle, description} = req.body
+    const {title, description} = req.body
     
     const newTask = new Tasks ({
-        tittle,
+        title,
         description,
         userId: req.user._id
     })
@@ -42,7 +42,7 @@ ctrlTask.putTask = async (req, res)=> {
     console.log(searchTask.userId)
 
     try {
-        if(toString(searchTask.userId) != toString(User)){
+        if(JSON.stringify(searchTask.userId) != JSON.stringify(User)){
             
             return res.json({
                 msg : 'la tarea no es de usted'

@@ -1,5 +1,5 @@
 const User = require('../models/Users');
-const Tasks = require('../models/Tasks');
+
 const generateT = require('../helpers/generateJWT');
 const bcrypt = require('bcrypt');
 
